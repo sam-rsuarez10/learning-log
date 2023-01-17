@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Topic, Entry
+from .forms import TopicForm
 
 # Create your views here.
 
@@ -23,3 +24,17 @@ def topic(request, topic_id):
     context = {'topic': topic, 'entries': entries}
 
     return render(request, 'learning_log_app/topic.html', context)
+
+def new_topic(request):
+    ''' Display topic's form and save it into the database '''
+    if request.method == 'GET':
+        # User have not entered data yet
+        # Create blank form
+        form = TopicForm()
+        return render(request, 'learning_log_app/new_topic.html', {'form': form})
+    else:
+        # User entered data, proccess it and save it into db
+        form = TopicForm(request.POST) # populated form with user data
+        if form.is_valid():
+            form.save() # save into database
+            return redirect('/topics')
