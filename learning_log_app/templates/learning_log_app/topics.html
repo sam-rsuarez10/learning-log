@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Topics</h1>
-    <a href='{% url 'learning_logs:new_topic' %}'>New topic</a>
+    
     <ul>
         {% for topic in topics %}
             <li><a href='{% url 'learning_logs:topic' topic.id %}'>{{ topic }}</a></li>
@@ -10,4 +10,6 @@
                 <li>No topics yet :b</li>
         {% endfor %}
     </ul>
+
+    <a href='{% url 'learning_logs:new_topic' %}'>New topic</a>
 {% endblock content %}

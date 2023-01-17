@@ -37,4 +37,4 @@ def new_topic(request):
         form = TopicForm(request.POST) # populated form with user data
         if form.is_valid():
             form.save() # save into database
-            return redirect('/topics')
+            return redirect('learning_logs:topics')
