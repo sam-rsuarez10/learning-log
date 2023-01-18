@@ -13,7 +13,7 @@ class Topic(models.Model):
 
 class Entry(models.Model):
     ''' A entry journal of a specific topic '''
-    text = models.TextField(help_text='Today I learned...')
+    text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
 

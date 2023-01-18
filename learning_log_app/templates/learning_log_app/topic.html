@@ -13,4 +13,5 @@
                 <li>You don't have any entries for this topic yet :b</li>
         {% endfor %}
     </ul>
+    <a href='{% url 'learning_logs:new_entry' topic.id %}'>New entry</a>
 {% endblock content %}
