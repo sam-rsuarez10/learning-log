@@ -1,0 +1,12 @@
+{% extends 'learning_log_app/base.html' %}
+
+{% block content %}
+    <a href='{% url 'learning_logs:topic' topic.id %}'>Back to {{topic.topic_name}}</a>
+    <h3>Entry {{entry.id}}</h3>
+
+    <form method='post' action='{% url 'learning_logs:edit_entry' entry.id %}'>
+        {% csrf_token %}
+        {{form.as_table}}
+        <button type="submit">Edit</button>
+    </form>
+{% endblock content %}

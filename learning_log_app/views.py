@@ -55,3 +55,19 @@ def new_entry(request, topic_id):
             entry.save()
             return redirect('learning_logs:topic', topic_id=topic_id)
     return render(request, 'learning_log_app/new_entry.html', context)
+
+def edit_entry(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    topic =  entry.topic
+    if request.method == 'GET':
+        # User have not entered new data
+        # populate form with existing entry data
+        form = EntryForm(instance=entry)
+        context = {'topic': topic, 'entry': entry, 'form': form}
+    else:
+        # User edited the existing entry
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topic', topic_id=topic.id)
+    return render(request, 'learning_log_app/edit_entry.html', context)

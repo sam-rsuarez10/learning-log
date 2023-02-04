@@ -1,7 +1,8 @@
 {% extends 'learning_log_app/base.html' %}
 
 {% block content %}
-    <h2>New Entry to topic {{topic.topic_name}}</h2>
+    <a href='{% url 'learning_logs:topic' topic.id %}'>Back to {{topic.topic_name}}</a>
+    <h2>New Entry</h2>
     <form action='{% url 'learning_logs:new_entry' topic.id %}' method='post'>
         {% csrf_token %}
         {{form.as_p}}
