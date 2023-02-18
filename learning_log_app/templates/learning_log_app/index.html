@@ -2,6 +2,15 @@
 
 {% block content %}
     <h1>Welcome to Learning Log :b</h1>
-    <a href='{% url 'learning_logs:topics' %}'>Topics</a>
+    <p>
+        {% if user.is_authenticated %}
+            Hello, {{ user.username }}
+            <br><br>
+            <a href='{% url 'learning_logs:topics' %}'>Topics</a> -
+            <a href='{% url 'users:logout' %}'> Log out</a>
+        {% else %}
+            <a href="{% url 'users:login' %}">Sign in</a>
+        {% endif %}
+    </p>
 {% endblock content %}
 
