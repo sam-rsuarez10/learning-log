@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 
@@ -8,12 +9,14 @@ from .forms import TopicForm, EntryForm
 def index(request):
     return render(request, 'learning_log_app/index.html')
 
+@login_required
 def topics(request):
     ''' Show all topics created '''
     topics_created = Topic.objects.order_by('date_added')
     context = {'topics': topics_created}
     return render(request, 'learning_log_app/topics.html', context)
 
+@login_required
 def topic(request, topic_id):
     ''' Show topic entries given the topic id'''
     # select given topic
@@ -25,6 +28,7 @@ def topic(request, topic_id):
 
     return render(request, 'learning_log_app/topic.html', context)
 
+@login_required
 def new_topic(request):
     ''' Display topic's form and save it into the database '''
     if request.method == 'GET':
@@ -39,6 +43,7 @@ def new_topic(request):
             return redirect('learning_logs:topics')
     return render(request, 'learning_log_app/new_topic.html', {'form': form})
 
+@login_required
 def new_entry(request, topic_id):
     '''Add new entry to the corresponding topic'''
     topic = Topic.objects.get(id=topic_id)
@@ -56,6 +61,7 @@ def new_entry(request, topic_id):
             return redirect('learning_logs:topic', topic_id=topic_id)
     return render(request, 'learning_log_app/new_entry.html', context)
 
+@login_required
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic =  entry.topic
